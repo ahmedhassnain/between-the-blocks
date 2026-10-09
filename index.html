@@ -16,7 +16,7 @@ img{max-width:100%}
   --navy:#0f1053; --on-navy:#ffffff;
   --paper:#f4f4fa; --card:#ffffff; --ink:#0b0c33; --muted:#565879; --line:#d6d7e8;
   --halftone-a:#c9cbe0; --halftone-b:#e6e7f3;
-  --city:#e0460b; --news:#d91a2a; --sport:#087f4b; --debate:#d416a0; --events:#2447f5;
+  --city:#e0460b; --news:#d91a2a; --sport:#087f4b; --debate:#d416a0; --events:#2447f5; --haze:#8a6400;
   --display:"Archivo","Arial Black",Impact,sans-serif;
   --ui:"Archivo","Helvetica Neue",Arial,sans-serif;
   --body:"Source Serif 4",Georgia,serif;
@@ -24,11 +24,11 @@ img{max-width:100%}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --paper:#08092e; --card:#121347; --ink:#f0f0ff; --muted:#a8aad0; --line:#2b2c6c;
   --halftone-a:#34367c; --halftone-b:#1c1d58;
-  --city:#ff6a33; --news:#ff4553; --sport:#19b673; --debate:#ff4fc8; --events:#6d86ff; color-scheme:dark}}
+  --city:#ff6a33; --news:#ff4553; --sport:#19b673; --debate:#ff4fc8; --events:#6d86ff; --haze:#f0c24b; color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#08092e; --card:#121347; --ink:#f0f0ff; --muted:#a8aad0; --line:#2b2c6c;
   --halftone-a:#34367c; --halftone-b:#1c1d58;
-  --city:#ff6a33; --news:#ff4553; --sport:#19b673; --debate:#ff4fc8; --events:#6d86ff; color-scheme:dark}
+  --city:#ff6a33; --news:#ff4553; --sport:#19b673; --debate:#ff4fc8; --events:#6d86ff; --haze:#f0c24b; color-scheme:dark}
 
 *{box-sizing:border-box}
 body{background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.45;margin:0}
@@ -200,6 +200,47 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
 .sources{font-family:var(--ui);font-size:.9rem;color:var(--muted)}
 .sources ul{margin:.4em 0 0;padding-left:1.2em}
 @media (max-width:480px){.facts{grid-template-columns:1fr}.facts dt{border-bottom:0;padding-bottom:0}}
+/* APU haze notice: a white sheet pulled up into the hero, headline set as tilted blocks like the masthead,
+   with a halftone "haze" drifting behind it. --haze is used only here. */
+.notice-wrap{position:relative;margin-top:-28px}
+.notice{--d:var(--haze);background:var(--card);border-left:10px solid var(--haze);box-shadow:8px 8px 0 var(--navy);
+  display:grid;grid-template-columns:1fr 1.25fr;gap:40px;padding:28px 32px 30px;position:relative;overflow:hidden}
+.notice::before{content:"";position:absolute;left:0;top:0;width:62%;height:220px;pointer-events:none;
+  background:radial-gradient(color-mix(in srgb,var(--haze) 38%,transparent) 34%,transparent 38%) 0 0/8px 8px;
+  -webkit-mask-image:linear-gradient(165deg,#000 15%,transparent 70%);mask-image:linear-gradient(165deg,#000 15%,transparent 70%)}
+.notice-main,.notice-advice{position:relative;min-width:0}
+.notice-stack{font:900 clamp(1.7rem,3.4vw,2.6rem)/.95 var(--display);font-stretch:125%;text-transform:uppercase;letter-spacing:-.015em;
+  transform:rotate(-2deg);transform-origin:left center;margin:18px 0 20px}
+.notice-stack .blk{display:block;width:max-content;max-width:100%;background:var(--ink);color:var(--card);padding:.1em .22em .05em;margin-bottom:.12em}
+.notice-stack .blk+.blk{background:var(--haze);margin-left:.6em}
+.notice-lead{font:400 1.08rem/1.55 var(--body);max-width:34em}
+.notice-foot{font-size:.85rem;color:var(--muted);margin-top:14px;max-width:40em}
+.notice-foot a{color:var(--ink);font-weight:700;text-decoration:underline;text-decoration-color:var(--haze);text-decoration-thickness:2px;text-underline-offset:3px;overflow-wrap:anywhere}
+.notice-advice h3{font:800 1rem var(--ui);font-stretch:110%;margin-bottom:8px}
+.notice-advice ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+.notice-advice li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;padding:12px 0;border-top:1px solid var(--line);font-size:.9rem;line-height:1.4}
+.notice-advice svg{width:34px;height:34px;fill:none;stroke:var(--haze);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* real fixtures table */
+.results caption{caption-side:top;text-align:left;font:800 .82rem var(--ui);font-stretch:105%;padding:14px 14px 6px}
+.sec .results{margin-top:22px}
+.results th:not(:first-child),.results td:not(:first-child){width:1%}
+.results tr.next td{color:var(--muted)}
+.results tr.next td.score{color:var(--sport)}
+
+/* story-page additions */
+.story-body h3{font:800 1.25rem/1.2 var(--ui);font-stretch:108%;margin-top:1.9em}
+.story-body h2+h3{margin-top:.8em}
+.story-body table{font-family:var(--ui);line-height:1.4}
+.story-body figure img.tall{max-height:640px;object-position:50% 72%}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.story-body .duo figure{margin:0}
+.story-body .duo img{aspect-ratio:3/2;height:auto}
+.pull cite{display:block;font:500 .85rem var(--ui);color:var(--muted);margin-top:8px;font-style:normal}
+.jump{display:flex;flex-wrap:wrap;gap:8px;font-family:var(--ui)}
+.story-body .jump a{text-decoration:none;font-weight:800;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;padding:.55em .85em;border:2px solid var(--d)}
+.story-body .jump a:hover{background:var(--d);color:var(--card)}
+
 /* responsive: anchors clear the sticky nav; the nav fades at whichever edge has more departments to scroll to */
 [id]{scroll-margin-top:64px}
 .nav ul{scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch}
@@ -248,16 +289,6 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
   .tl li{grid-template-columns:64px 1fr;gap:12px}
   .date{font-size:1.4rem}
 
-  /* results table becomes one block per fixture so the score is never scrolled off-screen */
-  .tablebox{overflow:visible}
-  .tablebox thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-  .tablebox tr{display:grid;grid-template-columns:1fr auto;column-gap:12px;padding:12px 14px;border-bottom:1px solid var(--line)}
-  .tablebox tr:last-child{border-bottom:0}
-  .tablebox td{padding:0;border:0;white-space:normal}
-  .tablebox td:nth-child(1){grid-area:1/1;font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
-  .tablebox td:nth-child(4){grid-area:1/2;font-size:.75rem;color:var(--muted);text-align:right}
-  .tablebox td:nth-child(2){grid-area:2/1;margin-top:2px}
-  .tablebox td.score{grid-area:2/2;text-align:right;margin-top:2px;white-space:nowrap}
 
   .band{margin-top:48px}
   .band .wrap{padding-block:44px}
@@ -278,7 +309,22 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
   .kicker{font-size:1.3rem}
   .facts{padding:4px 16px}
 }
+@media (max-width:900px){
+  .notice{grid-template-columns:1fr;gap:24px}
+}
+@media (max-width:560px){
+  .notice-wrap{margin-top:-20px}
+  .notice{padding:22px 18px 22px;border-left-width:8px;box-shadow:6px 6px 0 var(--navy)}
+  .notice::before{width:100%;height:170px}
+  .notice-stack{font-size:clamp(1.6rem,8.6vw,2.2rem)}
+  .notice-lead{font-size:1rem}
+  .notice-advice ul{grid-template-columns:1fr}
+  .results td{white-space:normal}
+  .results td.score{white-space:nowrap}
+  .story-body h3{font-size:1.12rem}
+}
 @media (max-width:420px){
+  .duo{grid-template-columns:1fr}
   .inside li{flex-direction:column;gap:1px}
   .inside li span{text-align:left}
 }
@@ -324,11 +370,33 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
         <h3>Community or just a group chat?</h3>
         <p>We asked around APU. Four people described four different campuses.</p>
       </a>
-      <a class="promo d-news" href="#story-support">
-        <span class="tag">Campus News</span>
-        <h3>Where to get help at APU</h3>
-        <p>Mental health, welfare and IT support, with rooms, hours and contacts.</p>
+      <a class="promo d-sport" href="#story-football">
+        <span class="tag">Sports &amp; Activities</span>
+        <h3>The APU Football Club is back</h3>
+        <p>Five wins from five, and the title decider is this Saturday.</p>
       </a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap notice-wrap" id="notice" aria-labelledby="notice-title">
+  <div class="notice">
+    <div class="notice-main">
+      <span class="tag">APU notice, 9 October 2026</span>
+      <h2 class="notice-stack" id="notice-title"><span class="blk">Outdoor sports</span><span class="blk">suspended</span></h2>
+      <p class="notice-lead">Because of the haze, all APU-organised outdoor sports and activities are suspended from 9 October until further notice. That includes training sessions, matches and outdoor recreation. Classes go on as usual.</p>
+      <p class="notice-foot">APU is following advice from the Ministry of Higher Education and will post updates. Questions go to <a href="mailto:studentaffairs@apu.edu.my">studentaffairs@apu.edu.my</a>.</p>
+    </div>
+    <div class="notice-advice">
+      <h3>What APU advises</h3>
+      <ul>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M5 15 16 5l11 10M8 13v14h6v-8h4v8h6V13"/></svg>Stay indoors where you can, and skip outdoor exercise or long spells out in the haze.</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 11c4-2 14-2 18 0v8c-2 5-16 5-18 0zM7 13H4c0 4 1 6 3 7M25 13h3c0 4-1 6-3 7M11 15h10M11 18h10"/></svg>Wear a properly fitted mask when you have to travel outdoors.</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M9 5h14l-2 22H11zM10 12c3 1.5 9 1.5 12 0"/></svg>Drink plenty of water and keep windows closed when the air quality is poor.</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="12"/><path d="M7.5 7.5l17 17M8 19c2-1.5 3.5-1.5 5 0s3.5 1.5 5 0 3.5-1.5 5 0"/></svg>The swimming pool for on-campus residences is closed.</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4v11M16 12c-2 0-3-2-5-2-4 0-6 9-6 14 0 3 2 4 4 3l6-3V15M16 12c2 0 3-2 5-2 4 0 6 9 6 14 0 3-2 4-4 3l-6-3V15"/></svg>If you have asthma or a heart or breathing condition, take extra care and keep taking your prescribed medication.</li>
+        <li><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4 26 8v8c0 6-4 10-10 12C10 26 6 22 6 16V8z"/><path d="M16 11v10M11 16h10"/></svg>Get medical help quickly if you have trouble breathing, chest pain, a cough that won't stop or symptoms that get worse.</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -365,13 +433,14 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
 
 <div class="wrap two">
   <section class="sec d-city" id="city">
-    <div class="sec-head"><h2>City Guide</h2><span class="note">Sample stories, coming next issue</span></div>
+    <div class="sec-head"><h2>City Guide</h2></div>
     <div class="split">
-      <a class="feat" href="#city"><div class="pic v3"></div><span class="tag">City Guide</span><h3>A first-timer's map of the neighbourhood</h3><p>Where to print at 11pm, which mamak has plugs, and the shortcut to the LRT.</p><span class="time">3 hours ago</span></a>
+      <a class="feat" href="#story-kl-october"><div class="pic v3"></div><span class="tag">City Guide</span><h3>What's happening around KL this October?</h3><p>K-pop, Halloween scares, free festivals, a tech summit and two comedy nights: twelve things to do outside of classes.</p><span class="readon">Read the guide</span></a>
       <div class="rows">
-        <a class="row" href="#city"><div class="pic sq"></div><div><h3>Best quiet cafés for group work</h3><span class="time">6 hours ago</span></div></a>
-        <a class="row" href="#city"><div class="pic sq v2"></div><div><h3>Weekend trips you can do on RM50</h3><span class="time">1 day ago</span></div></a>
-        <a class="row" href="#city"><div class="pic sq v3"></div><div><h3>Getting home after the last train</h3><span class="time">2 days ago</span></div></a>
+        <a class="row" href="#story-kl-october"><div class="date">10<small>Sat, Oct</small></div><div><h3>MAMAMOO 4WARD World Tour</h3><span class="time">Unifi Arena, Bukit Jalil. From RM 388</span></div></a>
+        <a class="row" href="#story-kl-october"><div class="date">15<small>to 1 Nov</small></div><div><h3>Urbanscapes 26</h3><span class="time">Across KL. Free art viewing and markets</span></div></a>
+        <a class="row" href="#story-kl-october"><div class="date">29<small>Thu, Oct</small></div><div><h3>SherpaSec cybersecurity meetup</h3><span class="time">KL Sentral. Free, register online</span></div></a>
+        <a class="row" href="#story-kl-october"><div class="date">31<small>Sat, Oct</small></div><div><h3>Jason Mraz on Halloween night</h3><span class="time">National Hockey Stadium. From RM 158</span></div></a>
       </div>
     </div>
   </section>
@@ -393,27 +462,39 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
 
 <div class="wrap two">
   <section class="sec d-sport" id="sport">
-    <div class="sec-head"><h2>Sports &amp; Activities</h2><span class="note">Sample results, coming next issue</span></div>
-    <div class="tablebox"><table>
-      <thead><tr><th>Sport</th><th>Match</th><th>Score</th><th>When</th></tr></thead>
+    <div class="sec-head"><h2>Sports &amp; Activities</h2></div>
+    <a class="feat" href="#story-football">
+      <div class="pic photo"><img src="assets/apufc-huddle.jpg" alt="APU FC players in a huddle, photographed from below" style="object-position:50% 40%"></div>
+      <span class="tag">Sports &amp; Activities</span>
+      <h3>The APU Football Club is back</h3>
+      <p>Revived under a new committee, APU FC took bronze at the Xceed Tournament and now leads All-Star League Division 4 with five wins from five.</p>
+      <span class="readon">Read the story</span>
+    </a>
+    <div class="tablebox results"><table>
+      <caption>APU FC in All-Star League Division 4</caption>
+      <thead><tr><th>Opponent</th><th>Score</th><th>Result</th></tr></thead>
       <tbody>
-        <tr><td>Futsal</td><td><span class="w">Blocks FC</span> v City Campus</td><td class="score">4–2</td><td>Thu</td></tr>
-        <tr><td>Badminton</td><td>Mixed doubles, round 2</td><td class="score">1–2</td><td>Wed</td></tr>
-        <tr><td>Basketball</td><td><span class="w">Block C</span> v Block A</td><td class="score">58–51</td><td>Tue</td></tr>
-        <tr><td>Netball</td><td>Home v North Campus</td><td class="score">Sat 5pm</td><td>Next</td></tr>
-        <tr><td>Hiking club</td><td>Sunrise hike, sign up by Fri</td><td class="score">Sun 6am</td><td>Next</td></tr>
+        <tr><td>Bani Adam FC</td><td class="score">3–0</td><td><span class="w">Won</span></td></tr>
+        <tr><td>Sporting LSBN</td><td class="score">3–0</td><td><span class="w">Won</span></td></tr>
+        <tr><td>AGD Titans</td><td class="score">3–1</td><td><span class="w">Won</span></td></tr>
+        <tr><td>KL Renegades</td><td class="score">2–1</td><td><span class="w">Won</span></td></tr>
+        <tr><td>SCRC</td><td class="score">6–1</td><td><span class="w">Won</span></td></tr>
+        <tr class="next"><td>'Shithousry' FC</td><td class="score">Sat 10 Oct</td><td>Title decider</td></tr>
       </tbody>
     </table></div>
+    <p class="note" style="margin-top:12px">APU-organised outdoor sports are paused because of the haze. <a href="#notice" style="text-decoration:underline">Read the notice</a>.</p>
   </section>
 
   <section class="sec d-events" id="events">
     <div class="sec-head"><h2>Events &amp; Timeline</h2></div>
     <ol class="tl">
       <li><div class="date">07<small>Wed, Oct</small></div><div><h3>ISA Freshers Day</h3><p>Auditorium 6, Level 3. 6:00 PM to 9:45 PM. A meet and greet for new Indian students.</p></div></li>
+      <li><div class="date">10<small>Sat, Oct</small></div><div><h3>APU FC title decider</h3><p>All-Star League Division 4 against 'Shithousry' FC at The New Camp Pitches, Bandar Utama. Wear your APU colours.</p></div></li>
       <li><div class="date">16<small>Fri, Oct</small></div><div><h3>Bollywood Night</h3><p>6PM to 10PM. Ticket promotions are on the apupunjabisociety page.</p></div></li>
+      <li><div class="date">23<small>Fri, Oct</small></div><div><h3>UMD Cup opener</h3><p>APU FC steps up to semi-pro football against Visionary, the unbeaten Division 2 champions.</p></div></li>
       <li><div class="date">TBA<small>Date to come</small></div><div><h3>Sudanese Society gathering</h3><p>Emoji challenge, draw and guess, family feud, food and music.</p></div></li>
     </ol>
-    <p class="note" style="margin-top:12px">Details are in <a href="#story-societies" style="text-decoration:underline">Societies welcome the September intake</a>.</p>
+    <p class="note" style="margin-top:12px">Details are in <a href="#story-societies" style="text-decoration:underline">Societies welcome the September intake</a> and <a href="#story-football" style="text-decoration:underline">The APU Football Club is back</a>.</p>
   </section>
 </div>
 
@@ -495,9 +576,9 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
     <dl class="facts">
       <dt>Where</dt><dd>Block E, Level 6</dd>
       <dt>Hours</dt><dd>Monday-Friday, 8:30AM to 6:00PM</dd>
-      <dt>Mental health support</dt><dd>mentalhealth@apu.edu.my</dd>
-      <dt>General wellbeing</dt><dd>studentwellbeing@apu.edu.my</dd>
-      <dt>Phone</dt><dd>+60 3-8992 5115</dd>
+      <dt>Mental health support</dt><dd><a href="mailto:mentalhealth@apu.edu.my">mentalhealth@apu.edu.my</a></dd>
+      <dt>General wellbeing</dt><dd><a href="mailto:studentwellbeing@apu.edu.my">studentwellbeing@apu.edu.my</a></dd>
+      <dt>Phone</dt><dd><a href="tel:+60389925115">+60 3-8992 5115</a></dd>
     </dl>
 
     <h2>Welfare and Disability Support</h2>
@@ -506,15 +587,15 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
     <dl class="facts">
       <dt>Where</dt><dd>Level 3, Spine, Student Services</dd>
       <dt>Hours</dt><dd>Monday-Friday, 8:30AM to 7PM. Saturday, 8:30AM to 1PM</dd>
-      <dt>Email</dt><dd>welfare@apu.edu.my</dd>
+      <dt>Email</dt><dd><a href="mailto:welfare@apu.edu.my">welfare@apu.edu.my</a></dd>
     </dl>
 
     <h2>APU Virtual Help Center</h2>
     <p>Aside from the mental and physical well-being help that APU provides, it also provides help with issues that may be faced while using Moodle, APSpace and Teams without having to be physically present at university. The technical support system provides a ticketing system where students can track their support requests.</p>
     <p>Additionally, APU's helpdesk deals with things such as Wi-Fi issues, APKey problems, application problems or any general university systems. Moreover, you can access the IT Helpdesk on APSpace by typing “Help Center” into the search bar which will take you to a website, click on IT Helpdesk.</p>
     <dl class="facts">
-      <dt>Email</dt><dd>assist@apu.edu.my</dd>
-      <dt>Phone</dt><dd>+60 3-8992 5050</dd>
+      <dt>Email</dt><dd><a href="mailto:assist@apu.edu.my">assist@apu.edu.my</a></dd>
+      <dt>Phone</dt><dd><a href="tel:+60389925050">+60 3-8992 5050</a></dd>
     </dl>
     <div class="sources"><strong>Sources</strong>
       <ul>
@@ -553,6 +634,199 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
     </dl>
   </div>
 </article>
+
+<article class="story d-sport" id="story-football" hidden>
+  <header class="story-head"><div class="wrap">
+    <a class="back" href="#sport">Back to the issue</a><br>
+    <span class="tag">Sports &amp; Activities</span>
+    <h1>The APU Football Club is back</h1>
+    <p class="dek">From underdog bronze medalists to undefeated league leaders, APU FC is putting itself on the map.</p>
+    <p class="byline">Sports &amp; Activities department, Issue 1</p>
+  </div></header>
+  <div class="story-body">
+    <p>After a period of quiet, the club has been officially revived under a new committee, and they are already making serious waves in the local football scene. With a fresh leadership team and a squad hungry for victory, the boys are on course for a great season.</p>
+    <figure><img src="assets/apufc-huddle.jpg" alt="APU FC players in their black and gold kit, arms around each other in a huddle" style="object-position:50% 40%"><figcaption>The revived APU FC squad.</figcaption></figure>
+
+    <h2>Meet the new committee</h2>
+    <dl class="facts">
+      <dt>President</dt><dd>Mwila Chibesa</dd>
+      <dt>Vice-President</dt><dd>Aslam Mpaata</dd>
+      <dt>Secretary</dt><dd>Aung Zow Moe</dd>
+      <dt>Treasurer</dt><dd>Ayoub Hassan</dd>
+      <dt>Team representative</dt><dd>Khais</dd>
+      <dt>Captain</dt><dd>Kirk</dd>
+      <dt>Vice-captain</dt><dd>Mido</dd>
+    </dl>
+
+    <h2>First blood: the Xceed Tournament</h2>
+    <p>The new squad's first matchups came at the Xceed Tournament, organised by Xiamen University. In a true underdog story, the APU team entered the competition without coaching leadership. Relying entirely on raw talent, grit and individual brilliance, the boys battled their way to the third-place playoff.</p>
+    <figure><img class="tall" src="assets/apufc-xceed.jpg" alt="The APU squad with their bronze medals in front of the X-Ceed Tournament backdrop at night"><figcaption>Bronze at the Xceed Tournament, Xiamen University Malaysia.</figcaption></figure>
+    <p>Facing off against the tournament organisers' Team B on their own home turf, APU took the game into extra time before clutching a thrilling 3-1 victory to secure third place. For a first outing with no official guidance from the sidelines, it was a statement indeed.</p>
+
+    <h2>Total dominance: All-Star League Division 4</h2>
+    <p>Fast forward to today, and the team has levelled up. Now competing in the All-Star League Div 4 in the Klang Valley, APU FC sits unrivalled at the top of the table with all 15 points from 5 matches.</p>
+    <div class="duo">
+      <figure><img src="assets/coach-kano.jpg" alt="Coach Kano watching from the touchline, arms folded"><figcaption>Coach Kano</figcaption></figure>
+      <figure><img src="assets/coach-dwe.jpg" alt="Assistant Coach Dwe gesturing to players from the touchline"><figcaption>Assistant Coach Dwe</figcaption></figure>
+    </div>
+    <p>A huge part of this dominant run is thanks to the addition of two dedicated coaches, Coach Kano and Coach Dwe. Their tactical guidance has transformed the squad into an unstoppable force. Just look at this winning streak:</p>
+    <div class="tablebox results"><table>
+      <caption>APU FC in All-Star League Division 4</caption>
+      <thead><tr><th>Opponent</th><th>Score</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>Bani Adam FC</td><td class="score">3–0</td><td><span class="w">Won</span></td></tr>
+        <tr><td>Sporting LSBN</td><td class="score">3–0</td><td><span class="w">Won</span></td></tr>
+        <tr><td>AGD Titans</td><td class="score">3–1</td><td><span class="w">Won</span></td></tr>
+        <tr><td>KL Renegades</td><td class="score">2–1</td><td><span class="w">Won</span></td></tr>
+        <tr><td>SCRC</td><td class="score">6–1</td><td><span class="w">Won</span></td></tr>
+      </tbody>
+    </table></div>
+
+    <h2>This Saturday: the title decider</h2>
+    <p>This is where we need the APU crowd. Tomorrow, Saturday 10 October, the boys face off against 'Shithousry' FC for the title. Winning it in our rookie season would be a sensational trophy lift.</p>
+    <dl class="facts">
+      <dt>When</dt><dd>Saturday 10 October</dd>
+      <dt>Where</dt><dd>The New Camp Pitches, Bandar Utama</dd>
+    </dl>
+    <p>Come down, wear your APU colours, and let's get loud for the boys as they fight to bring the championship home!</p>
+
+    <h2>Looking ahead: the UMD Cup</h2>
+    <p>Regardless of what happens this weekend, the club isn't slowing down. Right after the All-Star League wraps up, APU FC will be stepping up to the semi-pro level in the highly competitive UMD Cup.</p>
+    <p>It's going to be a trial by fire. Our very first match is scheduled for 23 October against Visionary, the reigning champions of All-Star League Division 2, who went invincible. It will be the toughest matchup yet, but if the last few months have proven anything, it's that you should never bet against this APU squad.</p>
+    <p class="kicker">Let's bring the noise this Saturday. Go APU!</p>
+  </div>
+</article>
+
+<article class="story d-city" id="story-kl-october" hidden>
+  <header class="story-head"><div class="wrap">
+    <a class="back" href="#city">Back to the issue</a><br>
+    <span class="tag">City Guide</span>
+    <h1>What's happening around KL this October?</h1>
+    <p class="dek">Looking for something exciting to do outside of classes? Kuala Lumpur has a lot to offer this October, from K-pop concerts to Halloween attractions and festivals. Here's our roundup of some of the biggest events around the city.</p>
+    <p class="byline">City Guide department, Issue 1</p>
+  </div></header>
+  <div class="story-body">
+    <nav class="jump" aria-label="Sections in this guide">
+      <a href="#kl-concerts">Concerts</a><a href="#kl-festivals">Festivals</a><a href="#kl-tech">Technology</a><a href="#kl-sports">Sports</a><a href="#kl-comedy">Comedy</a>
+    </nav>
+
+    <h2 id="kl-concerts" style="margin-top:1.4em">Concerts</h2>
+    <h3>MAMAMOO 4WARD World Tour</h3>
+    <p>Famous K-pop girl group MAMAMOO is making its long-awaited return to Kuala Lumpur with its 4WARD World Tour. Known for their solid vocals, bold retro look and mature image, the group has built a dedicated fanbase worldwide, and some would even call them a powerhouse. Their comeback has generated significant excitement within the K-pop community, making this one of the most anticipated concerts of the month.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>Unifi Arena, Bukit Jalil</dd>
+      <dt>Date</dt><dd>10 October 2026</dd>
+      <dt>Monthly listeners in KL</dt><dd>42K+</dd>
+      <dt>Tickets</dt><dd>From RM 388</dd>
+      <dt>More info</dt><dd><a href="http://my.bookmyshow.com/en/events/mamamoo-4ward-2026/MOO4WARD">BookMyShow</a></dd>
+    </dl>
+
+    <h3>Jason Mraz Asia Tour</h3>
+    <p>American artist Jason Mraz debuted in 2008 and released his most famous song, “I'm Yours”. He's known for his romantic music appeal. This is his first concert in Malaysia in 7 years, and he's performing on Halloween night. So if you want a relaxing Halloween night, you know where to go.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>National Hockey Stadium, Bukit Jalil</dd>
+      <dt>Date</dt><dd>31 October 2026, 7:00 PM</dd>
+      <dt>Monthly listeners in KL</dt><dd>189K+</dd>
+      <dt>Tickets</dt><dd>From RM 158</dd>
+      <dt>More info</dt><dd><a href="https://www.etix.my/Event/UHZJM26">Etix</a></dd>
+    </dl>
+
+    <h2 id="kl-festivals">Festivals</h2>
+    <h3>ANIFEST'10 2026</h3>
+    <p>ANIFEST'10 2026 is the 10th-anniversary edition of Malaysia's Creative Arts and TVET Festival (also known as ANIFEST-X), celebrating a decade of local creative arts, innovation and community talent. It has a plethora of creative exhibits such as art displays, comic artwork and booths by local creators, animators and artists, as well as interactive activities like creative workshops and special performances. It is the perfect gathering space for students, fans and industry creators to connect over a shared passion for art and design.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>KL Gateway Mall</dd>
+      <dt>Date</dt><dd>4 October 2026, 6:00 PM</dd>
+      <dt>Entry</dt><dd>Free</dd>
+    </dl>
+
+    <h3>Nights of Fright</h3>
+    <p>Nights of Fright is a horror-themed Halloween fest with a haunted house and a smorgasbord of terrifying scare zones. This year's special theme is “Ape-pocalypse”, where the park becomes a crumbling civilisation surrounded by huge apes. Experience a whole month of spine-chilling scares, immersive horrors and unforgettable memories, and live out your favourite horror movie moments to the fullest.</p>
+    <blockquote class="pull">“Whatever you do, don't fall asleep.” <cite>A Nightmare on Elm Street (1984)</cite></blockquote>
+    <dl class="facts">
+      <dt>Venue</dt><dd>Sunway Lagoon</dd>
+      <dt>Date</dt><dd>Every Friday, Saturday and Sunday, 25 September to 7 November 2026</dd>
+      <dt>Time</dt><dd>7:30 PM to 11:30 PM</dd>
+      <dt>Entry</dt><dd>From RM 138</dd>
+    </dl>
+
+    <h3>AKAR</h3>
+    <p>A curated community and creative culture festival filled with energetic DJ sets, captivating performances and aesthetic lighting that transforms the night into a surreal experience. If Halloween scares aren't your thing but you still want to be part of the festivities, fear not. This festival is the perfect alternative, offering a unique and memorable escape from the usual spooky vibes.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>Central Market</dd>
+      <dt>Date</dt><dd>31 October to 1 November 2026</dd>
+      <dt>Time</dt><dd>10:00 AM to 10:00 PM</dd>
+      <dt>Entry</dt><dd>Free</dd>
+    </dl>
+
+    <h3>Urbanscapes 26</h3>
+    <p>Urbanscapes, Malaysia's longest-running creative arts festival, is officially making its comeback in Kuala Lumpur after a seven-year hiatus. Centred around the theme “Made Different”, the 2026 edition spotlights independent Malaysian voices and a new generation of local creatives spanning music, visual art, design, film, culinary arts and live performances.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>Multiple locations across Kuala Lumpur</dd>
+      <dt>Date</dt><dd>15 October to 1 November 2026</dd>
+      <dt>Entry</dt><dd>Free for art viewing and independent markets. Music lineups, theatre and workshops are paid</dd>
+      <dt>Tickets</dt><dd>Yet to be announced</dd>
+    </dl>
+
+    <h2 id="kl-tech">Technology</h2>
+    <h3>Selangor Techsphere Summit 2026</h3>
+    <p>Explore the future of innovation at the new Selangor Techsphere Summit 2026. The exhibition focuses on the latest advances in AI, robotics, smart manufacturing and automation. Grab your passes early for a great opportunity to connect with regional industry leaders and explore cutting-edge technologies firsthand.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>Kuala Lumpur Convention Centre</dd>
+      <dt>Date</dt><dd>14 to 17 October</dd>
+      <dt>Entry</dt><dd>Exhibition passes are free on the website. Main conference passes are paid</dd>
+      <dt>More info</dt><dd><a href="https://selangortechsphere.com">selangortechsphere.com</a></dd>
+    </dl>
+
+    <h3>SherpaSec October Cybersecurity Meetup</h3>
+    <p>A community event with two speaker sessions and refreshments, so come along, chat directly with industry practitioners and build valuable contacts. It's a great opportunity for anyone interested in cybersecurity or IT, so don't miss out!</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>PwC Malaysia, Level 10, Menara TH 1 (KL Sentral)</dd>
+      <dt>Date</dt><dd>29 October, 7:00 PM to 9:30 PM</dd>
+      <dt>Entry</dt><dd>Free, but you must register online</dd>
+      <dt>Register</dt><dd><a href="https://luma.com/je6vcoeq">Luma event page</a></dd>
+    </dl>
+
+    <h2 id="kl-sports">Sports</h2>
+    <h3>KL Car-Free Morning</h3>
+    <p>If you like to start your mornings with a little exercise, join the KL Car-Free Morning. It's the perfect opportunity to explore the city streets on foot or on wheels. This free weekly 5 to 7 km road closure through the Golden Triangle is a favourite for cyclists, runners and skaters, so come and enjoy the less crowded community feel on a Sunday morning.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>Dataran DBKL</dd>
+      <dt>Date</dt><dd>Every Sunday in October, 7:00 AM to 9:00 AM</dd>
+      <dt>Entry</dt><dd>Free, no registration needed</dd>
+    </dl>
+
+    <h3>Petronas Grand Prix of Malaysia 2026 (MotoGP)</h3>
+    <p>Catch high-speed racing action at the Petronas Grand Prix of Malaysia. Watch MotoGP maestros like Marc Márquez, Jorge Martín and local talent Syarifuddin Azman live in an unmatched racing environment.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>Sepang International Circuit</dd>
+      <dt>Date</dt><dd>30 October to 1 November</dd>
+      <dt>Entry</dt><dd>Practice sessions on 30 October are free. Race day tickets from RM 143</dd>
+    </dl>
+
+    <h2 id="kl-comedy">Comedy</h2>
+    <h3>Dr Jason Leong: In Laughing Memory</h3>
+    <p>Experience a laughter-filled night with Dr Jason Leong's new stand-up special, “In Laughing Memory”. A 90-minute solo show in a theatre-run format that guarantees an unforgettable stand-up experience.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>The Platform Performing Arts Theatre (Menara KEN, TTDI)</dd>
+      <dt>Date</dt><dd>13 to 18 October</dd>
+      <dt>Tickets</dt><dd>From RM 108</dd>
+      <dt>Times and tickets</dt><dd><a href="https://www.cloudjoi.com/shows/4397-kl-inlaughingmemory2026">Cloudjoi</a></dd>
+    </dl>
+
+    <h3>Aaron Chen: Technology</h3>
+    <p>The brilliant Aaron Chen is on tour. The award-winning Australian comedian brings his deadpan humour and awkward style to Malaysia for one night only, so get your tickets now and don't miss out.</p>
+    <dl class="facts">
+      <dt>Venue</dt><dd>HXC Grand Ballroom, Kuala Lumpur</dd>
+      <dt>Date</dt><dd>20 October</dd>
+      <dt>Tickets</dt><dd>From RM 138</dd>
+      <dt>More info</dt><dd><a href="https://www.maiseat.com/en-US/shows/16319">Maiseat</a></dd>
+    </dl>
+
+    <p class="kicker" style="margin-top:2em">That's a wrap on what's happening around KL this month.</p>
+    <p>Whether you're heading to a tech meetup, rocking out at a concert or checking out a local festival, we hope you have a fantastic time. Until next time, enjoy the city and happy exploring!</p>
+  </div>
+</article>
 </main>
 
 <footer>
@@ -561,7 +835,7 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
     <ul>
       <li><a href="#city">City Guide</a></li><li><a href="#news">Campus News</a></li><li><a href="#sport">Sports &amp; Activities</a></li><li><a href="#debate">Debates &amp; Opinions</a></li><li><a href="#events">Events &amp; Timeline</a></li>
     </ul>
-    <small>Written and edited by students. Written at APU, Kuala Lumpur. City Guide and Sports entries on this draft are sample content.</small>
+    <small>Written and edited by students at APU, Kuala Lumpur.</small>
   </div>
 </footer>
 
@@ -569,10 +843,10 @@ footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
 (function(){
   var home=document.getElementById('home'),stories=document.querySelectorAll('.story');
   function route(id,jump){
-    var st=id&&id.indexOf('story-')===0?document.getElementById(id):null;
-    home.hidden=!!st; stories.forEach(function(a){a.hidden=a!==st});
-    if(st){window.scrollTo(0,0);return}
     var t=id&&document.getElementById(id);
+    var st=t?t.closest('.story'):null;
+    home.hidden=!!st; stories.forEach(function(a){a.hidden=a!==st});
+    if(st&&st===t){window.scrollTo(0,0);return}
     if(t&&jump){t.scrollIntoView()}
   }
   document.addEventListener('click',function(e){
