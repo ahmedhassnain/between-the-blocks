@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Between the Blocks, the student newsletter at APU, Kuala Lumpur.">
+<link rel="icon" href="assets/logo.jpg">
+<title>Between the Blocks</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+[hidden]{display:none!important}
+img{max-width:100%}
+/* Layout: navy masthead and hero built from tilted white blocks like the logo; below it a left-aligned
+   12-col news grid where each department owns one colour, used for its tag, its shard and its heading square. */
+:root{
+  --navy:#0f1053; --on-navy:#ffffff;
+  --paper:#f4f4fa; --card:#ffffff; --ink:#0b0c33; --muted:#565879; --line:#d6d7e8;
+  --halftone-a:#c9cbe0; --halftone-b:#e6e7f3;
+  --city:#e0460b; --news:#d91a2a; --sport:#087f4b; --debate:#d416a0; --events:#2447f5;
+  --display:"Archivo","Arial Black",Impact,sans-serif;
+  --ui:"Archivo","Helvetica Neue",Arial,sans-serif;
+  --body:"Source Serif 4",Georgia,serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --paper:#08092e; --card:#121347; --ink:#f0f0ff; --muted:#a8aad0; --line:#2b2c6c;
+  --halftone-a:#34367c; --halftone-b:#1c1d58;
+  --city:#ff6a33; --news:#ff4553; --sport:#19b673; --debate:#ff4fc8; --events:#6d86ff; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#08092e; --card:#121347; --ink:#f0f0ff; --muted:#a8aad0; --line:#2b2c6c;
+  --halftone-a:#34367c; --halftone-b:#1c1d58;
+  --city:#ff6a33; --news:#ff4553; --sport:#19b673; --debate:#ff4fc8; --events:#6d86ff; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.45;margin:0}
+a{color:inherit;text-decoration:none}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--events);outline-offset:3px}
+h1,h2,h3,p{margin:0}
+h2,h3{text-wrap:balance}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:20px}
+.d-city{--d:var(--city)}.d-news{--d:var(--news)}.d-sport{--d:var(--sport)}.d-debate{--d:var(--debate)}.d-events{--d:var(--events)}
+
+/* masthead */
+.mast{background:var(--navy);color:var(--on-navy)}
+.mast-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:10px}
+.mast-top img{height:84px;width:auto;display:block}
+.issue{font-size:.8rem;opacity:.8;text-align:right;font-variant-numeric:tabular-nums}
+.btn{display:inline-block;font:800 .82rem var(--ui);font-stretch:112%;text-transform:uppercase;letter-spacing:.04em;
+  padding:.75em 1.2em;border:2px solid currentColor;cursor:pointer;background:none;color:inherit}
+.btn.solid{background:var(--on-navy);color:var(--navy);border-color:var(--on-navy)}
+.btn:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0 currentColor}
+.btn.solid:hover{box-shadow:4px 4px 0 var(--debate)}
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--navy);color:var(--on-navy);border-top:1px solid rgba(255,255,255,.2)}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.nav a{display:block;white-space:nowrap;padding:14px 16px 11px;font-weight:800;font-stretch:110%;font-size:.84rem;text-transform:uppercase;letter-spacing:.03em;border-bottom:4px solid transparent}
+.nav a:hover{border-bottom-color:var(--d)}
+
+/* hero */
+.hero{background:var(--navy);color:var(--on-navy);padding-block:44px 56px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.7fr 1fr;gap:28px;align-items:stretch}
+.hero-main{position:relative;min-width:0;display:flex;flex-direction:column;gap:26px;justify-content:center}
+.stack{font-family:var(--display);font-weight:900;font-stretch:125%;text-transform:uppercase;line-height:.92;
+  font-size:clamp(2rem,6.6vw,5.2rem);letter-spacing:-.02em;transform:rotate(-3deg);transform-origin:left center;margin:18px 0 10px}
+.stack span{display:block;width:max-content;max-width:100%}
+.stack .blk{background:var(--on-navy);color:var(--navy);padding:.08em .22em .04em;margin:.1em 0 .1em -.1em}
+.stack .bar{display:flex;align-items:center;gap:.25em}
+.stack .bar::after{content:"";height:.42em;width:2.4em;background:var(--on-navy)}
+.hero p{font-family:var(--body);font-size:1.15rem;max-width:34em;opacity:.92}
+.hero-side{display:grid;gap:20px;min-width:0}
+.promo{background:var(--d);color:#fff;padding:22px;display:flex;flex-direction:column;gap:10px;justify-content:flex-end;min-height:190px;position:relative;overflow:hidden}
+.promo::before{content:"";position:absolute;right:-30px;top:-30px;width:150px;height:150px;background:var(--navy);clip-path:polygon(20% 0,100% 10%,80% 100%,0 60%);opacity:.9}
+.promo h3{font:900 1.45rem/1.02 var(--display);font-stretch:115%;text-transform:uppercase;position:relative}
+.promo p{font-family:var(--ui);font-size:.92rem;opacity:.95;position:relative}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .promo{color:var(--navy)}}
+:root[data-theme="dark"] .promo{color:var(--navy)}
+.promo::before{background:#0f1053}
+
+/* shared pieces */
+.tag{align-self:flex-start;display:inline-block;background:var(--d);color:var(--card);font-weight:800;font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;padding:.3em .7em}
+.promo .tag{background:#0f1053;color:#fff;position:relative}
+.sec{padding-block:48px 0}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.sec-head h2{font:900 clamp(1.6rem,3.6vw,2.5rem)/1 var(--display);font-stretch:122%;text-transform:uppercase;letter-spacing:-.01em;display:flex;align-items:center;gap:.4em}
+.sec-head h2::before{content:"";width:.62em;height:.62em;background:var(--d,var(--navy));transform:rotate(-6deg);flex:none}
+.more{font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;border-bottom:3px solid var(--d,var(--ink));padding-bottom:2px}
+.time{font-size:.78rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+/* picture slots: halftone ground with a department shard */
+.pic{position:relative;overflow:hidden;aspect-ratio:16/10;max-width:100%;
+  background:radial-gradient(var(--halftone-a) 34%,transparent 36%) 0 0/9px 9px,var(--halftone-b)}
+.pic::before,.pic::after{content:"";position:absolute;background:var(--d)}
+.pic::before{right:-6%;top:-10%;width:48%;height:70%;clip-path:polygon(30% 0,100% 12%,72% 100%,0 55%)}
+.pic::after{left:8%;bottom:-12%;width:26%;height:46%;clip-path:polygon(0 30%,100% 0,70% 100%);background:var(--navy);opacity:.85}
+.pic.v2::before{left:-8%;right:auto;top:auto;bottom:-14%;width:60%;clip-path:polygon(0 20%,80% 0,100% 70%,25% 100%)}
+.pic.v2::after{left:auto;right:10%;top:10%;bottom:auto;clip-path:polygon(50% 0,100% 100%,0 80%)}
+.pic.v3::before{left:30%;right:auto;top:18%;width:44%;height:64%;clip-path:polygon(0 0,100% 30%,60% 100%,10% 70%)}
+.pic.sq{aspect-ratio:1}
+
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.card{display:flex;flex-direction:column;gap:10px;min-width:0}
+.card h3{font:800 1.12rem/1.18 var(--ui);font-stretch:105%}
+.card p{font-family:var(--body);font-size:.95rem;color:var(--muted)}
+.card:hover h3,.row:hover h3,.feat:hover h3{text-decoration:underline;text-decoration-color:var(--d);text-decoration-thickness:3px;text-underline-offset:3px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+.two>section{min-width:0}
+.split{display:grid;grid-template-columns:1.1fr 1fr;gap:20px}
+.feat{display:flex;flex-direction:column;gap:10px;min-width:0}
+.feat h3{font:800 1.35rem/1.12 var(--ui);font-stretch:105%}
+.feat p{font-family:var(--body);color:var(--muted)}
+.rows{display:flex;flex-direction:column;min-width:0}
+.row{display:grid;grid-template-columns:76px 1fr;gap:14px;align-items:center;padding-block:14px;border-top:1px solid var(--line)}
+.row:first-child{border-top:0;padding-top:0}
+.row h3{font:700 1rem/1.2 var(--ui)}
+.quote{background:var(--card);border-left:8px solid var(--d);padding:22px;display:flex;flex-direction:column;gap:12px}
+.quote blockquote{margin:0;font:600 1.3rem/1.3 var(--body)}
+.quote cite{font-style:normal;font-size:.85rem;color:var(--muted)}
+
+/* sports table */
+.tablebox{overflow-x:auto;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.93rem}
+th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:12px 14px;border-bottom:2px solid var(--ink)}
+td{padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+td.score{font-weight:900;font-stretch:115%}
+td .w{color:var(--sport);font-weight:800}
+
+/* timeline */
+.tl{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.tl li{display:grid;grid-template-columns:74px 1fr;gap:16px;padding-block:14px;border-top:1px solid var(--line)}
+.tl li:first-child{border-top:3px solid var(--d)}
+.date{font:900 1.6rem/1 var(--display);font-stretch:118%;color:var(--d);font-variant-numeric:tabular-nums}
+.date small{display:block;font:700 .7rem var(--ui);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-top:4px}
+.tl h3{font:700 1.02rem/1.2 var(--ui)}
+.tl p{font-size:.86rem;color:var(--muted)}
+
+/* writers band + signup */
+.band{margin-top:64px;background:var(--navy);color:var(--on-navy);position:relative;overflow:hidden}
+.band .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;padding-block:56px;position:relative}
+.band h2{font:900 clamp(1.8rem,4.4vw,3.2rem)/.98 var(--display);font-stretch:122%;text-transform:uppercase;margin-bottom:14px}
+.band p{font-family:var(--body);font-size:1.08rem;max-width:32em;opacity:.92;margin-bottom:22px}
+.shards{position:absolute;inset:0;pointer-events:none}
+.shards i{position:absolute;width:150px;height:34px;transform:rotate(-28deg)}
+.shards i:nth-child(1){background:#d416a0;right:6%;top:14%}
+.shards i:nth-child(2){background:#2447f5;right:22%;top:46%;transform:rotate(38deg)}
+.shards i:nth-child(3){background:#e0460b;right:2%;bottom:16%;transform:rotate(12deg)}
+.shards i:nth-child(4){background:#fff;right:30%;bottom:8%;width:90px;transform:rotate(-52deg)}
+.depts{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px;position:relative;align-self:center}
+.depts a{display:flex;justify-content:space-between;gap:12px;background:var(--on-navy);color:var(--navy);padding:12px 16px;font-weight:800;font-stretch:110%;text-transform:uppercase;font-size:.9rem;border-left:10px solid var(--d)}
+.depts li:nth-child(odd) a{transform:rotate(-1deg)}
+.depts li:nth-child(even) a{transform:rotate(.8deg)}
+.depts span{font-weight:500;text-transform:none;font-stretch:100%;font-size:.82rem;opacity:.75;text-align:right}
+
+.signup{padding-block:56px;display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.signup h2{font:900 clamp(1.5rem,3vw,2.1rem)/1.02 var(--display);font-stretch:120%;text-transform:uppercase;margin-bottom:8px}
+.signup p{font-family:var(--body);color:var(--muted);max-width:30em}
+form{display:flex;gap:10px;flex-wrap:wrap}
+label{flex:1 1 100%;font-weight:700;font-size:.85rem}
+input{flex:1 1 220px;min-width:0;font:500 1rem var(--ui);padding:.8em 1em;border:2px solid var(--ink);background:var(--card);color:var(--ink)}
+form .btn{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+#signup-msg{flex:1 1 100%;font-size:.9rem;font-weight:700;color:var(--sport);min-height:1.4em}
+
+footer{background:var(--navy);color:var(--on-navy);padding-block:28px}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer img{height:64px;display:block}
+footer ul{list-style:none;margin:0;padding:0;display:flex;gap:18px;flex-wrap:wrap;font-size:.85rem;font-weight:700}
+footer small{opacity:.7;font-size:.78rem;flex-basis:100%}
+
+@media (max-width:900px){
+  .hero-grid,.two,.band .wrap,.signup{grid-template-columns:1fr}
+  .hero-side{grid-template-columns:1fr 1fr}
+  .cards{grid-template-columns:1fr 1fr}
+  .shards{opacity:.35}
+}
+@media (max-width:560px){
+  .mast-top img{height:60px}.issue{display:none}
+  .hero-side,.split{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .promo{min-height:150px}
+}
+@media (prefers-reduced-motion:reduce){.btn:hover{transform:none}}
+
+.pic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 48%}
+.pic.photo::before,.pic.photo::after{z-index:1}
+.pic.photo::before{width:26%;height:44%}
+.news2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.inside{list-style:none;margin:4px 0 0;padding:0;border-top:1px solid var(--line)}
+.inside li{padding:9px 0;border-bottom:1px solid var(--line);font-size:.9rem;font-weight:700;display:flex;justify-content:space-between;gap:12px}
+.inside li span{font-weight:500;color:var(--muted);text-align:right}
+.note{font-size:.8rem;color:var(--muted);font-style:italic}
+.readon{font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;border-bottom:3px solid var(--d);align-self:flex-start;padding-bottom:2px}
+/* article pages */
+.story-head{background:var(--navy);color:var(--on-navy);padding-block:36px 44px}
+.story-head .wrap,.story-body{max-width:780px}
+.back{display:inline-block;font-weight:800;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:26px;border-bottom:2px solid currentColor}
+.story-head .tag{color:#fff;margin-bottom:14px}
+.story-head h1{font:900 clamp(1.9rem,5.2vw,3.4rem)/1.02 var(--display);font-stretch:118%;letter-spacing:-.015em;text-wrap:balance;margin-bottom:16px}
+.story-head .dek{font:400 1.15rem/1.45 var(--body);opacity:.92;max-width:36em;margin-bottom:14px}
+.byline{font-size:.85rem;opacity:.8}
+.story-body{margin-inline:auto;padding:40px 20px 16px;font:400 1.14rem/1.68 var(--body)}
+.story-body>*+*{margin-top:1.15em}
+.story-body h2{font:900 1.5rem/1.1 var(--display);font-stretch:118%;text-transform:uppercase;margin-top:2.2em;display:flex;align-items:center;gap:.45em}
+.story-body h2::before{content:"";width:.6em;height:.6em;background:var(--d);transform:rotate(-6deg);flex:none}
+.story-body a{text-decoration:underline;text-decoration-color:var(--d);text-decoration-thickness:2px;text-underline-offset:3px;overflow-wrap:anywhere}
+.story-body figure{margin-inline:0}
+.story-body figure img{display:block;width:100%;max-height:520px;object-fit:cover;object-position:50% 45%}
+.story-body figcaption{font:500 .82rem var(--ui);color:var(--muted);margin-top:8px}
+.pull{margin-inline:0;padding:22px 24px;background:var(--card);border-left:8px solid var(--d);font-weight:600;font-size:1.22rem;line-height:1.4}
+.kicker{font:900 1.5rem/1.15 var(--display);font-stretch:112%}
+.facts{font-family:var(--ui);font-size:.95rem;line-height:1.4;background:var(--card);border-top:4px solid var(--d);padding:6px 20px;display:grid;grid-template-columns:auto 1fr;column-gap:20px}
+.facts dt,.facts dd{margin:0;padding:10px 0;border-bottom:1px solid var(--line)}
+.facts dt{font-weight:800;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding-top:13px}
+.facts dd{font-weight:600;overflow-wrap:anywhere;user-select:all}
+.facts dt:last-of-type,.facts dd:last-of-type{border-bottom:0}
+.sources{font-family:var(--ui);font-size:.9rem;color:var(--muted)}
+.sources ul{margin:.4em 0 0;padding-left:1.2em}
+@media (max-width:900px){.news2{grid-template-columns:1fr}}
+@media (max-width:480px){.facts{grid-template-columns:1fr}.facts dt{border-bottom:0;padding-bottom:0}}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap mast-top">
+    <a href="#top" aria-label="Between the Blocks home"><img src="assets/logo.jpg" alt="Between the Blocks"></a>
+    <div class="issue">Friday 9 October 2026<br>Issue 1, APU Kuala Lumpur</div>
+    <a class="btn solid" href="#subscribe">Subscribe</a>
+  </div>
+</header>
+<nav class="nav" aria-label="Departments">
+  <div class="wrap"><ul>
+    <li><a class="d-city" href="#city">City Guide</a></li>
+    <li><a class="d-news" href="#news">Campus News</a></li>
+    <li><a class="d-sport" href="#sport">Sports &amp; Activities</a></li>
+    <li><a class="d-debate" href="#debate">Debates &amp; Opinions</a></li>
+    <li><a class="d-events" href="#events">Events &amp; Timeline</a></li>
+  </ul></div>
+</nav>
+
+<main id="top">
+<div id="home">
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-main">
+      <h1 class="stack">
+        <span>What's going on</span>
+        <span class="blk">Between</span>
+        <span class="bar">the</span>
+        <span class="blk">Blocks?</span>
+      </h1>
+      <p>The student newsletter at APU, for everything that happens between one block and the next. This is our first issue: campus news, where to eat, who won, who disagrees, and what's on.</p>
+      <div><a class="btn solid" href="#news">Read the first issue</a></div>
+    </div>
+    <div class="hero-side">
+      <a class="promo d-debate" href="#story-community">
+        <span class="tag">Debates &amp; Opinions</span>
+        <h3>Community or just a group chat?</h3>
+        <p>We asked around APU. Four people described four different campuses.</p>
+      </a>
+      <a class="promo d-news" href="#story-support">
+        <span class="tag">Campus News</span>
+        <h3>Where to get help at APU</h3>
+        <p>Mental health, welfare and IT support, with rooms, hours and contacts.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="sec wrap d-news" id="news">
+  <div class="sec-head"><h2>Campus News</h2></div>
+  <div class="news2">
+    <a class="card d-news" href="#story-support">
+      <div class="pic photo"><img src="assets/wellbeing.jpg" alt="The Centre for Psychology and Well-Being mural at APU"></div>
+      <span class="tag">Campus News</span>
+      <h3>Where to get help at APU: mental health, welfare and IT support</h3>
+      <p>University life can get overwhelming. Here is who to see, where they sit and how to book.</p>
+      <ul class="inside">
+        <li>Mental well-being <span>Block E, Level 6</span></li>
+        <li>Welfare and disability support <span>Level 3, Spine</span></li>
+        <li>APU Virtual Help Center <span>Moodle, APSpace, Teams</span></li>
+      </ul>
+      <span class="readon">Read the guide</span>
+    </a>
+    <a class="card d-news" href="#story-societies">
+      <div class="pic v2"></div>
+      <span class="tag">Campus News</span>
+      <h3>Societies welcome the September intake</h3>
+      <p>As the new intake begins, societies across the university are welcoming new students with events and activities.</p>
+      <ul class="inside">
+        <li>ISA Freshers Day <span>7 October, Auditorium 6</span></li>
+        <li>Sudanese Society gathering <span>games, food and music</span></li>
+        <li>Bollywood Night <span>16 October, 6PM</span></li>
+      </ul>
+      <span class="readon">Read the story</span>
+    </a>
+  </div>
+</section>
+
+<div class="wrap two">
+  <section class="sec d-city" id="city">
+    <div class="sec-head"><h2>City Guide</h2><span class="note">Sample stories, coming next issue</span></div>
+    <div class="split">
+      <a class="feat" href="#city"><div class="pic v3"></div><span class="tag">City Guide</span><h3>A first-timer's map of the neighbourhood</h3><p>Where to print at 11pm, which mamak has plugs, and the shortcut to the LRT.</p><span class="time">3 hours ago</span></a>
+      <div class="rows">
+        <a class="row" href="#city"><div class="pic sq"></div><div><h3>Best quiet cafés for group work</h3><span class="time">6 hours ago</span></div></a>
+        <a class="row" href="#city"><div class="pic sq v2"></div><div><h3>Weekend trips you can do on RM50</h3><span class="time">1 day ago</span></div></a>
+        <a class="row" href="#city"><div class="pic sq v3"></div><div><h3>Getting home after the last train</h3><span class="time">2 days ago</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec d-debate" id="debate">
+    <div class="sec-head"><h2>Debates &amp; Opinions</h2></div>
+    <a class="feat" href="#story-community">
+      <div class="quote">
+        <span class="tag">Opinion</span>
+        <blockquote>“If you want a community then fill it with people who can bear each other.”</blockquote>
+        <cite>Richard, cybersecurity student</cite>
+      </div>
+      <h3>Community or just a group chat?</h3>
+      <p>APU has country clubs for every nationality, a math clinic and more ways to connect than anyone could use. So do people actually connect, or just co-exist in group chats?</p>
+      <span class="readon">Read the column</span>
+    </a>
+  </section>
+</div>
+
+<div class="wrap two">
+  <section class="sec d-sport" id="sport">
+    <div class="sec-head"><h2>Sports &amp; Activities</h2><span class="note">Sample results, coming next issue</span></div>
+    <div class="tablebox"><table>
+      <thead><tr><th>Sport</th><th>Match</th><th>Score</th><th>When</th></tr></thead>
+      <tbody>
+        <tr><td>Futsal</td><td><span class="w">Blocks FC</span> v City Campus</td><td class="score">4–2</td><td>Thu</td></tr>
+        <tr><td>Badminton</td><td>Mixed doubles, round 2</td><td class="score">1–2</td><td>Wed</td></tr>
+        <tr><td>Basketball</td><td><span class="w">Block C</span> v Block A</td><td class="score">58–51</td><td>Tue</td></tr>
+        <tr><td>Netball</td><td>Home v North Campus</td><td class="score">Sat 5pm</td><td>Next</td></tr>
+        <tr><td>Hiking club</td><td>Sunrise hike, sign up by Fri</td><td class="score">Sun 6am</td><td>Next</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="sec d-events" id="events">
+    <div class="sec-head"><h2>Events &amp; Timeline</h2></div>
+    <ol class="tl">
+      <li><div class="date">07<small>Wed, Oct</small></div><div><h3>ISA Freshers Day</h3><p>Auditorium 6, Level 3. 6:00 PM to 9:45 PM. A meet and greet for new Indian students.</p></div></li>
+      <li><div class="date">16<small>Fri, Oct</small></div><div><h3>Bollywood Night</h3><p>6PM to 10PM. Ticket promotions are on the apupunjabisociety page.</p></div></li>
+      <li><div class="date">TBA<small>Date to come</small></div><div><h3>Sudanese Society gathering</h3><p>Emoji challenge, draw and guess, family feud, food and music.</p></div></li>
+    </ol>
+    <p class="note" style="margin-top:12px">Details are in <a href="#story-societies" style="text-decoration:underline">Societies welcome the September intake</a>.</p>
+  </section>
+</div>
+
+<section class="band" id="join">
+  <div class="shards" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div>
+      <h2>Write for one of our five departments</h2>
+      <p>You don't need experience. Pick a department, pitch one idea, and an editor will help you get it into the next issue.</p>
+      <a class="btn solid" href="#subscribe">Pitch a story</a>
+    </div>
+    <ul class="depts">
+      <li><a class="d-city" href="#city">City Guide <span>food, transport, places</span></a></li>
+      <li><a class="d-news" href="#news">Campus News <span>what changed this week</span></a></li>
+      <li><a class="d-sport" href="#sport">Sports &amp; Activities <span>scores and clubs</span></a></li>
+      <li><a class="d-debate" href="#debate">Debates &amp; Opinions <span>your argument, edited</span></a></li>
+      <li><a class="d-events" href="#events">Events &amp; Timeline <span>what's on and when</span></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="wrap signup" id="subscribe">
+  <div>
+    <h2>Get every issue by email</h2>
+    <p>One email per issue with the stories from all five departments. No spam, and you can leave whenever you like.</p>
+  </div>
+  <form id="signup-form" novalidate>
+    <label for="signup-email">Student email</label>
+    <input id="signup-email" type="email" placeholder="TP012345@mail.apu.edu.my" autocomplete="email" required>
+    <button class="btn" type="submit">Subscribe</button>
+    <div id="signup-msg" role="status"></div>
+  </form>
+</section>
+</div>
+
+<article class="story d-debate" id="story-community" hidden>
+  <header class="story-head"><div class="wrap">
+    <a class="back" href="#debate">Back to the issue</a><br>
+    <span class="tag">Debates &amp; Opinions</span>
+    <h1>Community or Just a Group Chat?</h1>
+    <p class="byline">Debates &amp; Opinions department, Issue 1</p>
+  </div></header>
+  <div class="story-body">
+    <p>Before I got here, <em>“community”</em> meant something specific: dinners that nobody skipped, group chats people actually used, a floor that felt like a family. That's the pitch, anyway.</p>
+    <p>APU has a large student population, they've got the receipts to back this up. Country clubs for every nationality, a math clinic, this very newsletter, more ways to “connect” than anyone could realistically use. On paper, connection is everywhere. But having the spaces isn't the same as using them. So the question stands; do people actually connect or just co-exist in group chats?</p>
+    <p>After a second cup of bad coffee and a couple of questions thrown around the university, the verdict has yet to be decided on APU's sense of community. A community could mean a group bound by shared interest, mutual support, a sense of belonging, effortless. Clean and simple. This definition was held up to our peers and here's what they had to say:</p>
+    <p>My friend, Zuhayr, an on-campus resident and social butterfly, believes the sense of community here is strong. His proof isn't a stat or a campus program, he mentions a sweet moment where he took a leap of faith with his roommate and his friends at an event, and it all worked out. His social circle expanded ever since then, and now, you never see him sitting alone. Ask him, and he'll tell you it just happened, no effort required. Which if you think back to that “should”; effortless, reciprocal, no one needing to ask twice, that means Zuhayr's got the pitch. He's the brochure come to life.</p>
+    <p>Where Zuhayr got the pitch, Richard read the fine print. My closest friend in cybersecurity had an interesting view on community and he points out a crucial part of the social fabric; his version of community isn't about more people, it's about the right ones. He's not interested in padding the numbers to make a floor or a club photo well.</p>
+    <p>Richard put it plainly:</p>
+    <blockquote class="pull">“A community should be caring and respectful. Understanding one another and upfront, no wasting time filling in slots of people for the sake of size or letting random people in for nothing. If you want a community then fill it with people who can bear each other. Not rushing and doing whatever for the sake of having another person there.”</blockquote>
+    <p>“<em>People who can bear each other</em>” not ‘connect with’ or ‘vibe with’. It's a lower bar and a higher one at the same time. Which makes you wonder how many of this campus's “communities” are actually full of people who can stand each other, and how many are just full.</p>
+    <p class="kicker">Quality over quota. Nobody puts that on a flyer.</p>
+    <p>Maybe Richard is echoing something older than he realizes. Community didn't used to mean “<em>everyone welcome</em>”, it meant the people you were stuck with, for better or worse, until you figured out how to bear each other. We just don't have the “<em>stuck with</em>” part anymore, only have the “<em>bear each other</em>” part, and it turns out that's the hard part.</p>
+    <p>While some theorize about who deserves a seat at the table, Mary Kate pulls up more chairs. An active contributor to APU's clubs and also lives on-campus. She's got the friend groups, plural - not one tight circle but several overlapping ones. She knows her neighbors, volunteers for her country's events and not because of her resumé line, but because the opportunity presented itself. Mary Kate's not thinking about community, she's just living in the middle of it.</p>
+    <p>So what's actually missing here? Community, or the willingness to notice it?</p>
+    <p>The next few people asked to stay anonymous. Funny thing is, they also had the least to say, which might not be a coincidence. A quiet but active member of a country club told me while shrugging, “It's okay, there's not much to it, but I prefer it this way.” Another mentioned their small circle of friends then stopped, like that sentence had used up everything they had to say. A third, one of the athletes of the school gave a flat ‘yes’ or ‘no’ like community was a survey, not a question.</p>
+    <p>Maybe that's its own kind of data. The people with strong communities had names, clubs, neighbors, volunteer shifts, details they were happy to hand over. The people without much to say didn't just lack a good answer. They lacked the material to build one. No club to mention, no floor that felt like family, nothing they were proud of enough to put their name on.</p>
+    <p>Which is, in its own quiet way, the most honest answer anyone gave me.</p>
+    <p>So, is the sense of community here strong or weak? Depends who you ask, and apparently, how much they're willing to say.</p>
+    <p>Maybe that's the real finding, not that community is strong or weak here, but that it was never one thing to begin with. It's a patchwork, and whether you felt wrapped in it or standing outside it depends entirely on which square you happened to land on.</p>
+    <p>Four people, four different campuses. Same zip code, different postcard. Turns out there's room at plenty of tables. Nobody said anything about a seat.</p>
+  </div>
+</article>
+
+<article class="story d-news" id="story-support" hidden>
+  <header class="story-head"><div class="wrap">
+    <a class="back" href="#news">Back to the issue</a><br>
+    <span class="tag">Campus News</span>
+    <h1>Where to get help at APU</h1>
+    <p class="dek">Mental well-being, welfare and disability support, and the Virtual Help Center: where they are, when they open and how to reach them.</p>
+    <p class="byline">Campus News department, Issue 1</p>
+  </div></header>
+  <div class="story-body">
+    <h2 style="margin-top:0">Mental Well-Being</h2>
+    <p>Sometimes the responsibilities of university life may overwhelm students, which is why it is important to have a support system within the university to help overcome those feelings of distress. Recognizing the student's mental health and well-being, APU provides a mental health center. The psychology center is located in <strong>Block E, Level 6</strong> with working hours <strong>Monday-Friday from 8:30AM to 6:00PM.</strong></p>
+    <figure><img src="assets/wellbeing.jpg" alt="Wall mural reading Centre for Psychology and Well-Being, with a silhouette of a head and brain"><figcaption>The Centre for Psychology and Well-Being, Block E.</figcaption></figure>
+    <p>To book a consultation with one of the university's psychologists, search on APSpace <em>“Mental Health Support”</em>, this will take you to a form where you fill out details such as your name, TP number and availability. The form will ask you if you give your consent to your information being used for research purposes; you can decline or accept depending on your comfort. You will then be given the option if you want to have your session with a professional or with one of the university's psychology students.</p>
+    <p>During this session, the psychologist will ask questions about your case and will also allow you to express all your concerns. If you are dealing with problems of addiction, the psychologist will refer you to group counseling, and even if you feel as though you want more help, you can ask for follow-up sessions.</p>
+    <dl class="facts">
+      <dt>Where</dt><dd>Block E, Level 6</dd>
+      <dt>Hours</dt><dd>Monday-Friday, 8:30AM to 6:00PM</dd>
+      <dt>Mental health support</dt><dd>mentalhealth@apu.edu.my</dd>
+      <dt>General wellbeing</dt><dd>studentwellbeing@apu.edu.my</dd>
+      <dt>Phone</dt><dd>+60 3-8992 5115</dd>
+    </dl>
+
+    <h2>Welfare and Disability Support</h2>
+    <p>In addition to mental health support, APU has a <strong>Welfare &amp; Disability Support Office</strong> at <strong>Level 3, Spine, Student Services</strong> with working hours from <strong>Monday-Friday at 8:30AM to 7PM</strong> and on <strong>Saturday</strong> working hours are from <strong>8:30AM to 1PM.</strong></p>
+    <p>At APU we believe students with different capabilities should all be provided with the same high-quality education and high-quality university life. This aid ensures that students with disabilities are treated so that they do not experience a compromised university life. A healthy university life encourages a student's academic and social development which is what we value most at APU. Disability support can include assistance with appropriate accommodation, including accessible rooms/kitchens, and accessible lifts.</p>
+    <dl class="facts">
+      <dt>Where</dt><dd>Level 3, Spine, Student Services</dd>
+      <dt>Hours</dt><dd>Monday-Friday, 8:30AM to 7PM. Saturday, 8:30AM to 1PM</dd>
+      <dt>Email</dt><dd>welfare@apu.edu.my</dd>
+    </dl>
+
+    <h2>APU Virtual Help Center</h2>
+    <p>Aside from the mental and physical well-being help that APU provides, it also provides help with issues that may be faced while using Moodle, APSpace and Teams without having to be physically present at university. The technical support system provides a ticketing system where students can track their support requests.</p>
+    <p>Additionally, APU's helpdesk deals with things such as Wi-Fi issues, APKey problems, application problems or any general university systems. Moreover, you can access the IT Helpdesk on APSpace by typing “Help Center” into the search bar which will take you to a website, click on IT Helpdesk.</p>
+    <dl class="facts">
+      <dt>Email</dt><dd>assist@apu.edu.my</dd>
+      <dt>Phone</dt><dd>+60 3-8992 5050</dd>
+    </dl>
+    <div class="sources"><strong>Sources</strong>
+      <ul>
+        <li><a href="https://www.apu.edu.my/student-well-being-apu">Student Well-being at APU</a></li>
+        <li><a href="https://www.training.apu.edu.my/guide-new-apu-students">Guide for New APU Students</a></li>
+        <li><a href="https://www.apu.edu.my/index.php/campus-facilities">Campus Facilities</a></li>
+        <li><a href="https://www.apu.edu.my/connect">Connect</a></li>
+      </ul>
+    </div>
+  </div>
+</article>
+
+<article class="story d-news" id="story-societies" hidden>
+  <header class="story-head"><div class="wrap">
+    <a class="back" href="#news">Back to the issue</a><br>
+    <span class="tag">Campus News</span>
+    <h1>Societies welcome the September intake</h1>
+    <p class="dek">As the new September intake begins, societies across our university are welcoming new students with a variety of exciting events and activities.</p>
+    <p class="byline">Campus News department, Issue 1</p>
+  </div></header>
+  <div class="story-body">
+    <h2 style="margin-top:0">ISA Freshers Day</h2>
+    <p>The Indian Society is inviting our new Indian students to an exciting meet and greet, where the current students will get a chance to introduce themselves. The event will be held in Auditorium 6 level 3, on the 7th of October, it will be from 6:00 PM to 9:45 PM. It is advised that you fill out this form in order for the executives to get an estimation of the number of students coming.</p>
+    <dl class="facts">
+      <dt>When</dt><dd>7 October, 6:00 PM to 9:45 PM</dd>
+      <dt>Where</dt><dd>Auditorium 6, Level 3</dd>
+      <dt>Sign up</dt><dd><a href="https://docs.google.com/forms/d/e/1FAIpQLSfeKdVDZu-OzsbVenH-8NtC3-fHC5I6hwnZZMwn4_Oy9DyH2Q/viewform">Freshers Day form</a></dd>
+    </dl>
+    <h2>Sudanese Society Gathering</h2>
+    <p>The Sudanese community is hosting a gathering for the new September students to get a chance to immerse themselves in the APU Sudanese community. The project manager, Omniya Khalid has designed an emoji challenge game, a draw and guess game and a family feud game. In this gathering people will get a chance to bond over these games. There will also be food and music provided.</p>
+    <h2>Bollywood Night</h2>
+    <p>Our university is hosting a Bollywood night on the 16th of October from 6PM to 10PM. The executives of this event have made purchasing tickets very affordable by offering promotions that are available on their page <em>apupunjabisociety</em>. In this event, desi students inside and outside of APU will get a chance to share their culture with others, by performing, singing, dancing and eating food from different parts of the desi world.</p>
+    <dl class="facts">
+      <dt>When</dt><dd>16 October, 6PM to 10PM</dd>
+      <dt>Tickets</dt><dd><a href="https://www.instagram.com/apupunjabisociety">Punjabi Society page on Instagram</a></dd>
+    </dl>
+  </div>
+</article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img src="assets/logo.jpg" alt="Between the Blocks">
+    <ul>
+      <li><a href="#city">City Guide</a></li><li><a href="#news">Campus News</a></li><li><a href="#sport">Sports &amp; Activities</a></li><li><a href="#debate">Debates &amp; Opinions</a></li><li><a href="#events">Events &amp; Timeline</a></li>
+    </ul>
+    <small>Written and edited by students. Written at APU, Kuala Lumpur. City Guide and Sports entries on this draft are sample content.</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var home=document.getElementById('home'),stories=document.querySelectorAll('.story');
+  function route(id,jump){
+    var st=id&&id.indexOf('story-')===0?document.getElementById(id):null;
+    home.hidden=!!st; stories.forEach(function(a){a.hidden=a!==st});
+    if(st){window.scrollTo(0,0);return}
+    var t=id&&document.getElementById(id);
+    if(t&&jump){t.scrollIntoView()}
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest&&e.target.closest('a[href^="#"]'); if(!a)return;
+    var id=a.getAttribute('href').slice(1); e.preventDefault(); route(id,true);
+    try{history.replaceState(null,'','#'+id)}catch(_){}
+  });
+  window.addEventListener('hashchange',function(){route(location.hash.slice(1),true)});
+  route(location.hash.slice(1),true);
+})();
+document.getElementById('signup-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  var i=document.getElementById('signup-email'),m=document.getElementById('signup-msg');
+  if(!i.checkValidity()||!i.value){m.style.color='var(--news)';m.textContent='Enter a full email address, like TP012345@mail.apu.edu.my.';i.focus();return}
+  m.style.color='var(--sport)';m.textContent='Looks good. Sign-ups open when the site launches, so this address was not saved.';
+});
+</script>
+
+</body>
+</html>
